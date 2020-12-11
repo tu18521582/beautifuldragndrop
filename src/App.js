@@ -4,31 +4,36 @@ import {DragDropContext, Droppable} from 'react-beautiful-dnd';
 import Column from './Column';
 import initialData from './initialData';
 import styled from 'styled-components';
+const Container = styled.div`
+    display: flex;
+`;
 function App() {
-    const Container = styled.div`
-        display: flex;
-    `;
 
 
     const [state, setState] = useState(initialData);
     const column = state.columns;
 
     const onDragEnd = result => {
+        console.log('drag end');
         const { destination, source, draggableId, type } = result;
 
         if (!destination) {
+            console.log('keo vao khoang trong');
             return;
         }
+
         //keo va tha cung 1 vi tri
         if (
             destination.droppableId === source.droppableId &&
             destination.index === source.index
         ) {
+            console.log('keo va tha cung 1 vi tri');
             return;
         }
 
 
         if (type === "column") {
+            console.log('keo tha cot'); 
             const newColumnOrder = Array.from(state.columnOrder);
             newColumnOrder.splice(source.index, 1);
             newColumnOrder.splice(destination.index, 0, draggableId);
@@ -47,6 +52,7 @@ function App() {
 
         //keo tha cung cot
         if (start === finish) {
+            console.log('keo tha cung cot');
             const newTaskIds = Array.from(start.taskIds);
             newTaskIds.splice(source.index, 1);
             newTaskIds.splice(destination.index, 0 , draggableId);
@@ -67,6 +73,7 @@ function App() {
         }
         //keo tha khac cot
 
+        console.log('keo tha khac cot');
         const startTaskIds = Array.from(start.taskIds);
         startTaskIds.splice(source.index,1);
         const newStart = {
@@ -95,7 +102,7 @@ function App() {
 
     }
     return (
-        <DragDropContext onDragEnd={onDragEnd}>
+        <DragDropContext style={{height: '300px'}} onDragEnd={onDragEnd}>
             <Droppable droppableId="all-columns" direction="horizontal" type="column">
                 {(provided)=>(
                     <Container

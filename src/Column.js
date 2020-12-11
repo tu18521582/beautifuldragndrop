@@ -7,26 +7,25 @@ Column.propTypes = {
     
 };
 
+const Container = styled.div`
+    margin: 8px;
+    border: 1px solid lightgrey;
+    border-radius: 2px;
+    width: 33%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+`;
+const Title = styled.h3`
+    padding: 8px;
+`;
+const TaskList = styled.div`
+    padding: 8px;        
+`;
 function Column(props) {
     const {column, tasks, index} = props;
-    const [isDraggingOver, setDraggingOver] = useState(false);
-    const Container = styled.div`
-        margin: 8px;
-        border: 1px solid lightgrey;
-        border-radius: 2px;
-        width: 33%;
-        height: fit-content;
-        display: flex;
-        flex-direction: column;
-    `;
-    const Title = styled.h3`
-        padding: 8px;
-    `;
-    const TaskList = styled.div`
-        padding: 8px;        
-    `;
     return (
-        <Draggable draggableId={column.id} index={index}>
+        <Draggable draggableId={column.id} index={index} key={column.id} >
             {(provided)=>(
                 <Container {...provided.draggableProps} ref={provided.innerRef}>
                     <Title {...provided.dragHandleProps}>{column.title}</Title>

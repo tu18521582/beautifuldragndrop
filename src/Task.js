@@ -7,19 +7,18 @@ Task.propTypes = {
 };
 
 
+const Container = styled.div`
+border: 1px solid lightgrey;
+border-radius: 2px;
+padding: 8px;
+margin-bottom: 8px;
+background-color: white;
+`; 
 function Task(props) {
     const {task, index} = props;
-    const [state,setState] = useState(false);
-    const Container = styled.div`
-    border: 1px solid lightgrey;
-    border-radius: 2px;
-    padding: 8px;
-    margin-bottom: 8px;
-    background-color: ${state ? 'lightgreen' : 'white'};
-`; 
 
     return (
-        <Draggable draggableId={task.id} index={index}>
+        <Draggable draggableId={task.id} index={index} key={task.id}>
             {(provided, snapshot)=> {
                 return (
                     (
